@@ -9,14 +9,6 @@ pipeline {
             }
         }
 
-        stage('Set up Python') {
-            steps {
-                script {
-                    // No setup required for Python on Windows, it's pre-installed
-                }
-            }
-        }
-
         stage('Installation of dependencies') {
             steps {
                 bat 'pip install -r requirement.txt'
