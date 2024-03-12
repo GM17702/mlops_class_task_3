@@ -12,15 +12,14 @@ pipeline {
         stage('Set up Python') {
             steps {
                 script {
-                    // Install Python
-                    sh 'apt-get update && apt-get install -y python3 python3-pip'
+                    // No setup required for Python on Windows, it's pre-installed
                 }
             }
         }
 
         stage('Installation of dependencies') {
             steps {
-                bat 'pip3 install -r requirement.txt'
+                bat 'pip install -r requirement.txt'
                 echo 'Dependencies successfully installed!'
             }
         }
