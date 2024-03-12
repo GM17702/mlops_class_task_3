@@ -11,7 +11,7 @@ pipeline {
 
         stage('Installation of dependencies') {
             steps {
-                bat 'pip install -r requirement.txt'
+                bat 'pip3 install -r requirement.txt'
                 echo 'Dependencies successfully installed!'
             }
         }
