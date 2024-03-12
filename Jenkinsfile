@@ -9,13 +9,6 @@ pipeline {
             }
         }
 
-        stage('Set up Python') {
-            steps {
-                bat 'apt-get update && apt-get install -y python3 python3-pip'
-                echo 'Python installed!'
-            }
-        }
-
         stage('Installation of dependencies') {
             steps {
                 bat 'pip3 install -r requirement.txt'
