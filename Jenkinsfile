@@ -9,6 +9,14 @@ pipeline {
             }
         }
 
+        stage('Set up Python') {
+            steps {
+                bat 'python -m venv venv'
+                bat 'venv\\Scripts\\activate'
+                echo 'Python setup successfully!'
+            }
+        }
+
         stage('Installation of dependencies') {
             steps {
                 bat 'python -m pip install -r requirement.txt'
