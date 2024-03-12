@@ -2,45 +2,35 @@ pipeline {
     agent any
     
     stages {
-
-        stage('Cloning from git') {
-            steps {
-                git branch: 'main', url: 'https://github.com/GM17702/mlops_class_task_3_20I-0923'
-            }
-        }
-
-        stage('Set up Python') {
-            steps {
-                bat 'python -m venv venv'
-                bat 'venv\\Scripts\\activate'
-                echo 'Python setup successfully!'
-            }
-        }
-
-        stage('Installation of dependencies') {
-            steps {
-                bat 'python -m pip install -r requirement.txt'
-                echo 'Dependencies successfully installed!'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                bat 'python test.py'
-                echo 'Tests passed!'
-            }
-        }
-
-        stage('Deploy') {
+        stage('Checkout') {
             steps {
                 script {
-                    if (env.BRANCH_NAME == 'main') {
-                        echo 'Deploying to production...'
-                        
-                    } else {
-                        echo 'Deploying to development server...'
-                        
-                    }
+                    git branch: 'main', url: 'https://github.com/GM17702/mlops_class_task_3_20I-0923.git'
+                }
+            }
+        }
+        
+        stage('Set up Python') {
+            steps {
+                script {
+                    // Install Python
+                    sh 'apt-get update && apt-get install -y python3 python3-pip'
+                }
+            }
+        }
+        
+        stage('Install dependencies') {
+            steps {
+                script {
+                    sh 'pip3 install -r requirements.txt'
+                }
+            }
+        }
+        
+        stage('Run tests') {
+            steps {
+                script {
+                    sh 'make test'
                 }
             }
         }
