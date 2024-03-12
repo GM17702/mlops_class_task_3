@@ -2,23 +2,38 @@ pipeline {
     agent any
     
     stages {
-        stage('Checkout') {
+
+        stage('Cloning from git') {
             steps {
-                script {
-                    git branch: 'main', url: 'https://github.com/GM17702/mlops_class_task_3_20I-0923.git'
-                }
+                git branch: 'main', url: 'https://github.com/GM17702/mlops_class_task_3_20I-0923.git'
             }
         }
-        
-        stage('Install dependencies') {
+
+        stage('Installation of dependencies') {
             steps {
-                bat 'python -m pip install -r requirements.txt'
+                bat 'pip install -r requirement.txt'
+                echo 'Dependencies successfully installed!'
             }
         }
-        
-        stage('Run tests') {
+
+        stage('Test') {
             steps {
                 bat 'python test.py'
+                echo 'Tests passed!'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    if (env.BRANCH_NAME == 'main') {
+                        echo 'Deploying to production...'
+                        
+                    } else {
+                        echo 'Deploying to development server...'
+                        
+                    }
+                }
             }
         }
     }
